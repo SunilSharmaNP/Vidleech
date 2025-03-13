@@ -1,14 +1,11 @@
 # Copyright ToonRips
 
-BOT_TOKEN = "6841086396:AAFlM8u6Z-XEYYBbmQmHDPzWYRN4J2j9OyE"                              # Require restart after changing it while bot running
-OWNER_ID = "6066102279"                               # Require restart after changing it while bot running
-TELEGRAM_API = "5360874"                           # Require restart after changing it while bot running
-TELEGRAM_HASH = "4631f40a1b26c2759bf1be4aff1df710"   
-DATABASE_URL = "mongodb+srv://sahilnew:sahilnew@cluster0.z2beyb0.mongodb.net/?retryWrites=true&w=majority"
+BOT_TOKEN = ""                              # Require restart after changing it while bot running
+OWNER_ID = ""                               # Require restart after changing it while bot running
+TELEGRAM_API = ""                           # Require restart after changing it while bot running
+TELEGRAM_HASH = ""   
+DATABASE_URL = ""
 # Require restart after changing it while bot running
-
-SUPPORTED_LANGUAGES="tel,te,తెలుగు,hin,hi" #(prioritized languages: Telugu first, then Hindi).
-ALWAYS_REMOVE_LANGUAGES="tam,ta,தமிழ்,mal,ml,മലയാളം" #(languages to always exclude).
 
 AUTO_DELETE_MESSAGE_DURATION = 30
 AUTO_DELETE_UPLOAD_MESSAGE_DURATION = 0
@@ -27,11 +24,11 @@ CLOUD_LINK_FILTERS = ""
 UPSTREAM_REPO = ""
 UPSTREAM_BRANCH = master
 FSUB_BUTTON_NAME = Join Group
-CHANNEL_USERNAME = SharkToonsIndia
+CHANNEL_USERNAME = ToonRips
 AUTHOR_NAME = ToonRips
-AUTHOR_URL = https://t.me/SharkToonsIndia
+AUTHOR_URL = https://t.me/ToonRips
 DRIVE_SEARCH_TITLE = Drive Search
-GD_INFO = By @SharkToonsIndia
+GD_INFO = By @ToonRips
 RCLONE_TFSIMULATION = 4
 SESSION_TIMEOUT = 0
 PROG_FINISH = ⬢
@@ -43,7 +40,7 @@ NONPREMIUM_LIMIT = 5
 DAILY_LIMIT_SIZE = 50
 TSEARCH_TITLE = Torrent Search
 DISABLE_VIDTOOLS = Nope
-COMPRESS_BANNER = Re-Encoded by SharkToonsIndia
+COMPRESS_BANNER = Re-Encoded by ToonRips
 LIB264_PRESET = superfast
 LIB265_PRESET = faster
 HARDSUB_FONT_NAME = Simple Day Mistu
