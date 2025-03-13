@@ -20,10 +20,10 @@ async def authorize(_, message: Message):
     else:
         id_ = message.chat.id
     if id_ in user_data and user_data.get(id_, {}).get('is_auth'):
-        msg = 'Already Authorized Mahesh Bae!'
+        msg = 'Already Authorized Satyamisme!'
     else:
         await update_user_ldata(id_, 'is_auth', True)
-        msg = 'Authorized Successfully By Mahesh Bae.'
+        msg = 'Authorized Successfully By Satyamisme.'
     msg = await sendMessage(msg, message)
     await auto_delete_message(message, msg)
 
@@ -39,9 +39,9 @@ async def unauthorize(_, message: Message):
         id_ = message.chat.id
     if id_ not in user_data or user_data.get(id_, {}).get('is_auth'):
         await update_user_ldata(id_, 'is_auth', False)
-        msg = 'Unauthorized Successfully Mahesh Bae.'
+        msg = 'Unauthorized Successfully Satyamisme.'
     else:
-        msg = 'Already Unauthorized By Mahesh Bae!'
+        msg = 'Already Unauthorized By Satyamisme!'
     msg = await sendMessage(msg, message)
     await auto_delete_message(message, msg)
 
@@ -65,7 +65,7 @@ async def addSudo(_, message: Message):
             msg = 'Already Sudo Bae!'
         else:
             await update_user_ldata(id_, 'is_sudo', True)
-            msg = 'Promoted as Sudo By Mahesh Bae.'
+            msg = 'Promoted as Sudo By Satyamisme.'
     else:
         msg = 'Give ID or Reply To message of whom you want to Promote Bae.'
     msg = await sendMessage(msg, message)

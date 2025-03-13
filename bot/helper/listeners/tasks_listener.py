@@ -263,7 +263,7 @@ class TaskListener(TaskConfig):
             LOGGER.info(f"Thumbnail not found at {thumb_path}, using default")
             thumb_path = None
 
-        msg = f'<a href="https://t.me/maheshsirop"><b><i>Bot By Mahesh Kadali</b></i></a>\n'
+        msg = f'<a href="https://t.me/satyamisme1"><b><i>Bot By satyamisme</b></i></a>\n'
         msg += f'<code>{escape(self.name)}</code>\n'
         msg += f'<b>┌ Size: </b>{size_str}\n'
 
