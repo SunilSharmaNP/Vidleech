@@ -225,18 +225,21 @@ class VidEcxecutor(FFProgress):
             self.listener.suproc = process
             _, code = await gather(self.progress(status), process.wait())
             if code == 0:
-                LOGGER.info(f"FFmpeg succeeded for MID: {self.listener.mid}")
+                LOGGER.info(f"FFmpeg process for MID {self.listener.mid} completed successfully with exit code {code}.")
                 return True
-            if self.listener.suproc == 'cancelled' or code == -9:
-                self.is_cancelled = True
-                LOGGER.info(f"FFmpeg cancelled for MID: {self.listener.mid}")
-            else:
+            
+            self.is_cancelled = True # Assume cancellation or error if code is not 0
+            LOGGER.error(f"FFmpeg process for MID {self.listener.mid} failed with exit code {code}.")
+            if self.listener.suproc == 'cancelled':
+                LOGGER.warning(f"FFmpeg process for MID {self.listener.mid} was cancelled by user/system.")
+            elif code == -9: # SIGKILL
+                LOGGER.warning(f"FFmpeg process for MID {self.listener.mid} was killed (SIGKILL).")
+            else: # Other non-zero exit codes
                 error_msg = (await process.stderr.read()).decode().strip()
-                LOGGER.error(f"FFmpeg error for MID: {self.listener.mid}: {error_msg}")
-                self.is_cancelled = True
+                LOGGER.error(f"FFmpeg error for MID {self.listener.mid}: {error_msg}")
             return False
         except Exception as e:
-            LOGGER.error(f"Run cmd error for MID: {self.listener.mid}: {e}", exc_info=True)
+            LOGGER.error(f"Run cmd error for MID {self.listener.mid}: {e}", exc_info=True)
             self.is_cancelled = True
             return False
 

@@ -75,43 +75,28 @@ class ExtraSelect:
             text += "No streams available to process.\n"
             LOGGER.warning(f"No streams found in data for {self.executor.mode}")
         else:
-            telugu_tags, hindi_tags, always_remove = self._get_language_lists()
-
-            has_telugu = any(
-                stream.get('codec_type') == 'audio' and self._is_language_match(stream.get('tags', {}).get('language', ''), telugu_tags)
-                for stream in streams_dict.values()
-            )
-            has_hindi = any(
-                stream.get('codec_type') == 'audio' and self._is_language_match(stream.get('tags', {}).get('language', ''), hindi_tags)
-                for stream in streams_dict.values()
-            )
+            telugu_tags, _, _ = self._get_language_lists() # We only need telugu_tags for audio
 
             for key, value in streams_dict.items():
                 codec_type = value.get('codec_type', 'unknown')
                 lang = value.get('tags', {}).get('language', '')
-                is_metadata = codec_type == 'data' or (codec_type == 'unknown' and 'metadata' in value.get('tags', {}).get('title', '').lower())
+                is_metadata = codec_type == 'data' or \
+                              (codec_type == 'unknown' and 'metadata' in value.get('tags', {}).get('title', '').lower())
 
-                if codec_type == 'subtitle':
+                if codec_type == 'audio':
+                    if self._is_language_match(lang, telugu_tags):
+                        text += f"{value['info']}\n"  # Keep Telugu audio
+                    else:
+                        self.executor.data['streams_to_remove'].append(key)
+                        text += f"🚫 {value['info']} (Removed)\n" # Remove non-Telugu audio
+                elif codec_type == 'subtitle':
                     self.executor.data['streams_to_remove'].append(key)
                     text += f"🚫 {value['info']} (Removed)\n"
                 elif codec_type == 'video' or is_metadata:
+                    text += f"{value['info']}\n" # Keep video and metadata
+                else:
+                    # Keep any other unknown stream types by default
                     text += f"{value['info']}\n"
-                elif codec_type == 'audio':
-                    if has_telugu and self._is_language_match(lang, telugu_tags):
-                        text += f"{value['info']}\n"
-                    elif has_telugu:
-                        self.executor.data['streams_to_remove'].append(key)
-                        text += f"🚫 {value['info']} (Removed)\n"
-                    elif has_hindi and self._is_language_match(lang, hindi_tags):
-                        text += f"{value['info']}\n"
-                    elif has_hindi:
-                        self.executor.data['streams_to_remove'].append(key)
-                        text += f"🚫 {value['info']} (Removed)\n"
-                    elif self._is_language_match(lang, always_remove):
-                        self.executor.data['streams_to_remove'].append(key)
-                        text += f"🚫 {value['info']} (Removed)\n"
-                    else:
-                        text += f"{value['info']}\n"
 
             if self.executor.data['streams_to_remove']:
                 text += '\n<b>Removed Streams:</b>\n'

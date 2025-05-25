@@ -53,14 +53,22 @@ def get_file_size(file_path):
         return 0
 
 def get_video_info(file_path):
+    logger.info(f"Getting video info for: {file_path}")
     try:
         cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', file_path]
+        logger.info(f"Executing ffprobe command: {' '.join(cmd)}")
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
-        duration = float(result.stdout.strip())
+        raw_stdout = result.stdout.strip()
+        logger.info(f"ffprobe raw stdout for {file_path}: {raw_stdout}")
+        duration = float(raw_stdout)
         bitrate = int((get_file_size(file_path) * 8) / duration) if duration > 0 else 0
+        logger.info(f"Parsed video info for {file_path} - Duration: {duration:.2f}s, Bitrate: {bitrate} bps")
         return {'duration': duration, 'bitrate': bitrate}
+    except subprocess.CalledProcessError as e:
+        logger.error(f"ffprobe failed for {file_path}. Command: {' '.join(e.cmd)}. Return code: {e.returncode}. Stderr: {e.stderr.strip() if e.stderr else 'N/A'}")
+        return None
     except Exception as e:
-        logger.error(f"Error getting video info for {file_path}: {e}")
+        logger.error(f"Error getting video info for {file_path}: {e}", exc_info=True)
         return None
 
 def find_optimal_split_time(input_file, start_time, target_min_bytes, target_max_bytes, total_duration, max_iterations=5):
