@@ -221,7 +221,7 @@ function s_validate() {
 </script>
 </head>
 <body>
-  <!--© Designed and coded by @maheshsirop-Telegram-->
+  <!--© Designed and coded by @satyamisme1-Telegram-->
     <header>
       <div class="brand">
         <img
@@ -613,7 +613,7 @@ section span{
     </style>
   </head>
 <body>
-   <!--© Designed and coded by @maheshsirop-Telegram-->
+   <!--© Designed and coded by @satyamisme1-Telegram-->
     <header>
       <div class="brand">
         <img

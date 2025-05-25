@@ -83,7 +83,9 @@ VID_MODE = {'vid_vid': 'Video + Video',
             'watermark': 'Watermark',
             'extract': 'Extract',
             'trim': 'Trim',
-            'rmstream': 'Remove Stream'}
+            'rmstream': 'Remove Stream',
+            'merge_rmaudio': 'Merge and Remove Audio',
+            'merge_preremove_audio': 'Merge with Pre-Remove Audio'}
 
 DEFAULT_SPLIT_SIZE = 2097151000
 ARIA_NAME = environ.get('ARIA_NAME', 'aria2c')
@@ -456,7 +458,7 @@ UPDATE_EVERYTHING = environ.get('UPDATE_EVERYTHING', 'False').lower() == 'true'
 AUTHOR_NAME = environ.get('AUTHOR_NAME', 'Maheshsirop')
 AUTHOR_URL = environ.get('AUTHOR_URL', 'https://t.me/maheshsirop')
 DRIVE_SEARCH_TITLE = environ.get('DRIVE_SEARCH_TITLE', 'Drive Search')
-GD_INFO = environ.get('GD_INFO', 'By @maheshsirop')
+GD_INFO = environ.get('GD_INFO', 'By @satyamisme1')
 PROG_FINISH = environ.get('PROG_FINISH', '⬤')
 PROG_UNFINISH = environ.get('PROG_UNFINISH', '○')
 SOURCE_LINK_TITLE = environ.get('SOURCE_LINK_TITLE', 'Source Link')

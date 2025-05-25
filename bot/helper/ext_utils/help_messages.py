@@ -80,7 +80,7 @@ Example: <code>[</code><b>|</b><code>]</code><b>|</b> <code>-</code> <b>|</b> <c
 '''
     META = '''
 <b>METADATA SETTING</b>\n
-Send metadata title for video file like <b>Uploaded by @maheshsirop</b>
+Send metadata title for video file like <b>Uploaded by @satyamisme1</b>
 <b>Current:</b> <code>{}</code>\n
 <i>Timeout: 60s.</i>
 '''

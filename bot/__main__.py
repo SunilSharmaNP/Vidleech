@@ -178,7 +178,7 @@ async def restart(_, message: Message):
         except Exception as e:
             await editMessage(f'ERROR: {e}', msg)
     else:
-        _, msg = await gather(kill_route(), sendMessage('<i>Restarting bro wait if I did not respond from 2-3 min tag my broken 💔 baby @maheshsirop...</i>', message))
+        _, msg = await gather(kill_route(), sendMessage('<i>Restarting bro wait if I did not respond from 2-3 min tag my broken 💔 baby @satyamisme1...</i>', message))
         if scheduler.running:
             scheduler.shutdown(wait=False)
         if qb := Intervals['qb']:
