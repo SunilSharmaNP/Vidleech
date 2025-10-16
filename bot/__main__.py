@@ -79,8 +79,8 @@ async def stats(_, message: Message):
 @new_task
 async def start(client: Client, message: Message):
     buttons = ButtonMaker()
-    buttons.button_link('Owner', f'https://t.me/maheshsirop')
-    buttons.button_link('Group', f'https://t.me/hexafreinds')
+    buttons.button_link('👑 𝐎ᴡɴᴇʀ', f'https://t.me/Sunil_Sharma_2_0')
+    buttons.button_link('📢 𝐔ᴘᴅᴀᴛᴇs', f'https://t.me/SSBotsUpdates')
     image = config_dict['IMAGE_AUTH']
     user_id = message.from_user.id if message.from_user else message.sender_chat.id
     user_dict = user_data.get(user_id, {})
@@ -137,9 +137,10 @@ async def start(client: Client, message: Message):
         if start_message := config_dict['START_MESSAGE']:
             text = start_message
         else:
-            text = ('<b>Bot ready to use...</b>'
-                    'Back to the group and happy mirroring...\n'
-                    'All mirror and leech file(s) will send here and log channel\n\n'
+            text = ('<b>🙏 𝐓ʜᴀɴᴋs 😇\n' 
+                    '𝐍ᴏᴡ, 𝐈 𝐖ɪʟʟ 𝐒ᴇɴᴅ 𝐀ʟʟ 𝐘ᴏᴜʀ 𝐋ᴇᴇᴄʜ/𝐌ɪʀʀᴏʀ 𝐅ɪʟᴇs & 𝐋ɪɴᴋs 𝐇ᴇʀᴇ.\n'  
+                    '🚀 𝐒ᴛᴀʀᴛ 𝐔sɪɴɢ 𝐌ᴇ 𝐈ɴ 𝐆ʀᴏᴜᴘ & 𝐄ɴᴊᴏʏ ❤️</b>\n\n'
+                    
                     f'Join @{config_dict["CHANNEL_USERNAME"]} for more info...')
     else:
         text, image = config_dict['START_MESSAGE'] or '<b>Upss...</b>\nNot authorized user!', config_dict['IMAGE_UNAUTH']
@@ -178,7 +179,7 @@ async def restart(_, message: Message):
         except Exception as e:
             await editMessage(f'ERROR: {e}', msg)
     else:
-        _, msg = await gather(kill_route(), sendMessage('<i>Restarting bro wait if I did not respond from 2-3 min tag my broken 💔 baby @maheshsirop...</i>', message))
+        _, msg = await gather(kill_route(), sendMessage('<i>Bot Restarting.... \n Please Wait..</i>', message))
         if scheduler.running:
             scheduler.shutdown(wait=False)
         if qb := Intervals['qb']:
@@ -243,14 +244,12 @@ async def new_member(_, message: Message):
         except:
             image = config_dict['IMAGE_WEL']
         text = f'''
-Hello there <b>{user.mention}</b>, welcome to <b>{(await bot.get_chat(message.chat.id)).title}</b> Group. Enjoy in mirror/leech party ☠️
+Hello there <b>{user.mention}</b>, Welcome To <b>{(await bot.get_chat(message.chat.id)).title}</b> Group.️
 <b>┌ ID:</b> <code>{user.id}</code>
 <b>├ First Name:</b> {user.first_name}
 <b>├ Last Name:</b> {user.last_name or '🙂'}
 <b>├ Username:</b> {f'@{user.username}' if user.username else '🙂'}
-<b>├ Language:</b> {user.language_code.upper() if user.language_code else '🙂'}
-<b>├ DC ID:</b> {user.dc_id or '🙂'}
-<b>└ Premium User:</b> {'Yes' if user.is_premium else 'No'}'''
+<b>├ DC ID:</b> {user.dc_id or '🙂'}'''
         newmsg = await sendingMessage(text, message, image, buttons.build_menu(2))
         if await aiopath.exists(image):
             await clean_target(image)
@@ -260,7 +259,7 @@ Hello there <b>{user.mention}</b>, welcome to <b>{(await bot.get_chat(message.ch
 @new_task
 async def leave_member(_, message: Message):
     user = message.left_chat_member
-    leavemsg = await sendingMessage(f'Yeah... <b>{user.mention}</b>, don\'t come back here! 🤡🤡', message, config_dict['IMAGE_BYE'])
+    leavemsg = await sendingMessage(f'Yeah... <b>{user.mention}</b>, don\'t come back again here! 🤡🤡', message, config_dict['IMAGE_BYE'])
     await gather(sendCustom('Yeah u are leaved!', user.id), auto_delete_message(message, leavemsg))
 
 
