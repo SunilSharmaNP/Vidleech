@@ -9,8 +9,8 @@ class UsetString:
     CAP = f'''
 <b>CUSTOM CAPTION SETTING</b>\n
 Set custom caption with <b>HTML</b> style
-Example: <code>{escape("<b>By:</b> <a href='https://t.me/hexafreinds'>HF</a>")}</code>
-Result: <b>By:</b> <a href='https://t.me/hexafreinds'>HF</a>\n
+Example: <code>{escape("<b>By:</b> <a href='https://t.me/SSBotsUpdates'>HF</a>")}</code>
+Result: <b>By:</b> <a href='https://t.me/SSBotsUpdates'>HF</a>\n
 <i>*Be careful when you use html tag for caption\n
 Timeout: 60s.</i>
 '''
@@ -22,7 +22,7 @@ Timeout: 60s.</i>
     RCP = '''
 <b>RCLONE PATH SETTING</b>\n
 Send valid rclone path
-Example: <code>mrcc:GDRIVE:Mirror/Movie</code>\n
+Example: <code>mrcc:GDRIVE:SSBot/Movie</code>\n
 Timeout: 60s.</i>
 '''
     GDID = '''
@@ -40,25 +40,25 @@ Timeout: 60s.</i>
     INDX = '''
 <b>INDEX URL SETTING</b>\n
 Send valid index url
-Example: <code>https://xx.xxxxxx.workers.dev/0:</code>\n
+Example: <code>https://Sunil.SSBots.workers.dev/0:</code>\n
 Timeout: 60s.</i>
 '''
     PRE = '''
 <b>PRENAME SETTING</b>\n
-Example: <b>@hexafreinds -</b>\n
+Example: <b>@SSBots -</b>\n
 <b>Org Name:</b>
 <code>Ironman 1 (2008) [1080p].mkv</code>
 <b>Result:</b>
-<code>@hexafreinds - Ironman 1 (2008) [1080p].mkv</code>\n
+<code>@SSBots - Ironman 1 (2008) [1080p].mkv</code>\n
 <i>Timeout: 60s.</i>
 '''
     SUF = '''
 <b>SUFNAME SETTING</b>\n
-Example: <b>- @hexafreinds</b>\n
+Example: <b>- @SSBots</b>\n
 <b>Org Name:</b>
 <code>Ironman 1 (2008) [1080p].mkv</code>
 <b>Result:</b>
-<code>Ironman 1 (2008) [1080p] - @hexafreinds.mkv</code>\n
+<code>Ironman 1 (2008) [1080p] - @SSBots.mkv</code>\n
 <i>Timeout: 60s.</i>
 '''
     SES = f'''
@@ -80,7 +80,7 @@ Example: <code>[</code><b>|</b><code>]</code><b>|</b> <code>-</code> <b>|</b> <c
 '''
     META = '''
 <b>METADATA SETTING</b>\n
-Send metadata title for video file like <b>Uploaded by @maheshsirop</b>
+Send metadata title for video file like <b>Uploaded by SSBots</b>
 <b>Current:</b> <code>{}</code>\n
 <i>Timeout: 60s.</i>
 '''
