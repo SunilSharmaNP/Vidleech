@@ -378,7 +378,7 @@ async def load_config():
     'IMAGE_VIDTOOLS': 'https://te.legra.ph/file/4a6bfaa52dd23922e2448-8bb146c6e49437a77e.jpg',
     'IMAGE_WEL': 'https://te.legra.ph/file/4a6bfaa52dd23922e2448-8bb146c6e49437a77e.jpg',
     'IMAGE_WIBU': 'https://te.legra.ph/file/4a6bfaa52dd23922e2448-8bb146c6e49437a77e.jpg',
-    'IMAGE_YT': 'https://te.legra.ph/file/4a6bfaa52dd23922e2448-8bb146c6e49437a77e.jpg'}
+    'IMAGE_YT': 'https://te.legra.ph/file/4a6bfaa52dd23922e2448-8bb146c6e49437a77e.jpg'
     # ======================================================================
 
     # =========================== ACCOUNTS =================================
