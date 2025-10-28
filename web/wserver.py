@@ -221,20 +221,20 @@ function s_validate() {
 </script>
 </head>
 <body>
-  <!--© Designed and coded by @maheshsirop-Telegram-->
+  <!--© Designed and coded by SSBOts-->
     <header>
       <div class="brand">
         <img
           src="https://graph.org/file/1a6ad157f55bc42b548df.png"
           alt="logo"
         />
-        <a href="https://t.me/maheshsirop">
+        <a href="https://t.me/SSBOtsUpdates">
           <h2 class="name">Bittorrent Selection</h2>
         </a>
       </div>
       <div class="social">
-        <a href="https://www.instagram.com/mahesh_namikaze?igsh=NTh0dWprZjExeW81"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/Maheshsirop"><i class="fab fa-telegram"></i></a>
+        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/SSBOtsUpdates"><i class="fab fa-telegram"></i></a>
       </div>
     </header>
     <div id="sticks">
