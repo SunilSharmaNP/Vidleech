@@ -620,13 +620,13 @@ section span{
           src="https://graph.org/file/1a6ad157f55bc42b548df.png"
           alt="logo"
         />
-        <a href="https://t.me/hexafreinds">
+        <a href="https://t.me/SSBotsUpdates">
           <h2 class="name">Bittorrent Selection</h2>
         </a>
       </div>
       <div class="social">
-        <a href="https://www.instagram.com/mahesh_namikaze?igsh=NTh0dWprZjExeW81"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/hexafreinds"><i class="fab fa-telegram"></i></a>
+        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/SSBotsUpdates"><i class="fab fa-telegram"></i></a>
       </div>
     </header>
     <section>
