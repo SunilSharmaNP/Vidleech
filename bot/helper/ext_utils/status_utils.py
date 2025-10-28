@@ -124,8 +124,9 @@ def action(message: Message):
     return acts.replace('/', '#').replace(f'@{bot_name}', '').replace(str(config_dict['CMD_SUFFIX']), '').lower()
 
 
-def get_readable_message(sid: int, is_user: bool, page_no: int=1, status : str='All', page_step: int=1):
+def get_readable_message(sid: int, is_user: bool, page_no: int = 1, status: str = 'All', page_step: int = 1):
     dl_speed = up_speed = 0
+    msg = ''
 
     if status == 'All':
         tasks = [tk for tk in task_dict.values() if tk.listener.user_id == sid] if is_user else list(task_dict.values())
@@ -142,48 +143,64 @@ def get_readable_message(sid: int, is_user: bool, page_no: int=1, status : str='
     elif page_no < 1:
         page_no = pages - (abs(page_no) % pages)
     start_position = (page_no - 1) * STATUS_LIMIT
+
     for index, task in enumerate(tasks[start_position:STATUS_LIMIT + start_position], start=1):
         tstatus = task.status()
-        msg += f'<b>{index+start_position}.</b> 🎥 𝐓ɪᴛᴛʟᴇ : </b><code>{escape(str(task.name())) or "N/A"}</code>'
+        msg += f'<b>{index + start_position}.</b> 🎥 𝐓ɪᴛᴛʟᴇ :</b> <code>{escape(str(task.name())) or "N/A"}</code>'
         msg += f'\n\n┏━━༻«<b> <a href=https://t.me/SSBotsUpdates>★彡 𝐒𝐒 𝐁ᴏᴛs 彡★</a></b> »༺━━┓'
+
         if task.listener.isSuperChat:
             reply_to = task.listener.message.reply_to_message
             link = task.listener.message.link if not reply_to or getattr(reply_to.from_user, 'is_bot', None) else reply_to.link
-            msg += f'\n<b>┠🪄 𝐒ᴛᴀᴛᴜs :<a href="{link}">{tstatus}...</a></b>'
+            msg += f'\n<b>┠🪄 𝐒ᴛᴀᴛᴜs :</b> <a href="{link}">{tstatus}...</a>'
         else:
             msg += f'\n<b>┠ {tstatus}...</b>'
-        ext_msg = (f'\n<b>┠🪩 𝐄ɴɢɪɴᴇ :{task.engine()}</b>'
-                   f'\n<b>┠👤 𝐔sᴇʀ :</b> <a href="https://t.me/{task.listener.message.from_user.username}">{task.listener.message.from_user.first_name}</a>' if task.listener.isSuperChat else ''
-                   f'\n<b>┠ Action:</b> {action(task.listener.message)}')
+
+        ext_msg = (
+            f'\n<b>┠🪩 𝐄ɴɢɪɴᴇ :</b> {task.engine()}'
+            f'\n<b>┠👤 𝐔sᴇʀ :</b> <a href="https://t.me/{task.listener.message.from_user.username}">{task.listener.message.from_user.first_name}</a>'
+            if task.listener.isSuperChat else ''
+        )
+        ext_msg += f'\n<b>┠ Action:</b> {action(task.listener.message)}'
+
         if tstatus not in [MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_METADATA, MirrorStatus.STATUS_SUBSYNC]:
             msg += f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
-        
+
             if tstatus == MirrorStatus.STATUS_SPLITTING and task.listener.isLeech:
                 msg += f'\n<b>┠ Split Size:</b> {get_readable_file_size(task.listener.splitSize)}'
-        
-            msg += (f'\n<b>┠⚡𝐏ʀᴏᴄᴇssᴇᴅ :</b> {task.processed_bytes()} of {task.size()}'
-                    f'\n<b>┠⏳𝐄ᴛᴀ :</b> {task.eta() or "~"}'
-                    f'\n<b>┠☘️𝐒ᴘᴇᴇᴅ :</b> {task.speed()}'
-                    f'\n<b>┠🕓𝐄ʟᴀᴘsᴇᴅ :</b>{task.elapsed() or "~"}')
+
+            msg += (
+                f'\n<b>┠⚡𝐏ʀᴏᴄᴇssᴇᴅ :</b> {task.processed_bytes()} of {task.size()}'
+                f'\n<b>┠⏳𝐄ᴛᴀ :</b> {task.eta() or "~"}'
+                f'\n<b>┠☘️𝐒ᴘᴇᴇᴅ :</b> {task.speed()}'
+                f'\n<b>┠🕓𝐄ʟᴀᴘsᴇᴅ :</b> {task.elapsed() or "~"}'
+            )
 
             if tstatus == MirrorStatus.STATUS_WAIT:
                 msg += f'\n<b>┠ Timeout: </b>{task.timeout()}'
-            if hasattr(task, 'seeders_num'):
+
+            if hasattr(task, "seeders_num"):
                 try:
                     msg += f'\n<b>┠ S/L:</b> {task.seeders_num()}/{task.leechers_num()}'
-                except:
+                except Exception:
                     pass
+
         elif tstatus == MirrorStatus.STATUS_SEEDING:
-            msg += (f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
-            msg += (f'\n<b>┠ Size:</b> {task.size()}'
-                    f'\n<b>┠ Speed:</b> {task.upload_speed()}'
-                    f'\n<b>┠ Uploaded:</b> {task.uploaded_bytes()}'
-                    f'\n<b>┠ Ratio:</b> {task.ratio()}'
-                    f'\n<b>┠ Time:</b> {task.seeding_time()}'
-                    f'\n<b>┠ S/L:</b> {task.seeders_num()}/{task.leechers_num()}')
+            msg += f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
+            msg += (
+                f'\n<b>┠ Size:</b> {task.size()}'
+                f'\n<b>┠ Speed:</b> {task.upload_speed()}'
+                f'\n<b>┠ Uploaded:</b> {task.uploaded_bytes()}'
+                f'\n<b>┠ Ratio:</b> {task.ratio()}'
+                f'\n<b>┠ Time:</b> {task.seeding_time()}'
+                f'\n<b>┠ S/L:</b> {task.seeders_num()}/{task.leechers_num()}'
+            )
         else:
-            msg += (f'\n<b>┠ Size:</b> {task.size()}'
-                    f'\n<b>┠ Elapsed:</b> {task.elapsed() or "~"}')
+            msg += (
+                f'\n<b>┠ Size:</b> {task.size()}'
+                f'\n<b>┠ Elapsed:</b> {task.elapsed() or "~"}'
+            )
+
         msg += f'{ext_msg}\n<b>┠</b>/{BotCommands.CancelTaskCommand} {task.gid()}\n\n'
         msg += f'┗━━༻« <b><a href=https://t.me/SSBotsUpdates>★彡 𝐒𝐒 𝐁ᴏᴛs 彡★</a></b> »༺━━┛\n\n'
 
@@ -210,15 +227,22 @@ def get_readable_message(sid: int, is_user: bool, page_no: int=1, status : str='
         if tasks_no > 30:
             for i in [1, 2, 4, 6, 8, 10, 15, 20]:
                 buttons.button_data(i, f'status {sid} ps {i}', 'footer')
+
     if len(task_dict) > STATUS_LIMIT or status != 'All':
         for label, status_value in STATUS_VALUES:
             if status_value != status:
                 buttons.button_data(label, f'status {sid} st {status_value}')
+
     buttons.button_data('♻️', f'status {sid} ref', 'header')
     if is_user:
         buttons.button_data('✘', f'status {sid} cls', 'header')
-    msg += ('┎⌬ <b><i>📊 𝐒𝐒 𝐁ᴏᴛs 𝐒ᴛᴀᴛs ⋆｡°✩₊˚.༄</i></b>\n'
-            f'┠<b>⚙️ 𝐂ᴘᴜ:</b> {cpu_percent()}% <b>|💿 𝐅:</b> {get_readable_file_size(disk_usage(config_dict["DOWNLOAD_DIR"]).free)}\n'
-            f'┠<b>🧠 𝐑ᴀᴍ::</b> {virtual_memory().percent}% <b>|⏳ 𝐔ᴘᴛɪᴍᴇ:</b>{get_readable_time(time() - botStartTime)}'
-            f'┠<b>🔻 𝐃ʟ:</b> {get_readable_file_size(dl_speed)} <b>|🔺 𝐔ʟ:</b> {get_readable_file_size(up_speed)}/s <b>')
+
+    msg += (
+        '┎⌬ <b><i>📊 𝐒𝐒 𝐁ᴏᴛs 𝐒ᴛᴀᴛs ⋆｡°✩₊˚.༄</i></b>\n'
+        f'┠<b>⚙️ 𝐂ᴘᴜ:</b> {cpu_percent()}% <b>|💿 𝐅:</b> {get_readable_file_size(disk_usage(config_dict["DOWNLOAD_DIR"]).free)}\n'
+        f'┠<b>🧠 𝐑ᴀᴍ:</b> {virtual_memory().percent}% <b>|⏳ 𝐔ᴘᴛɪᴍᴇ:</b> {get_readable_time(time() - botStartTime)}\n'
+        f'┠<b>🔻 𝐃ʟ:</b> {get_readable_file_size(dl_speed)} <b>|🔺 𝐔ʟ:</b> {get_readable_file_size(up_speed)}/s'
+    )
+
     return msg, buttons.build_menu(6)
+
