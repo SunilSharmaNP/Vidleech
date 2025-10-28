@@ -37,19 +37,21 @@ class MirrorStatus:
     STATUS_WATERMARK = 'Watermarking'
 
 
-STATUS_VALUES = [('ALL', 'All'),
-                 ('DL', MirrorStatus.STATUS_DOWNLOADING),
-                 ('UP', MirrorStatus.STATUS_UPLOADING),
-                 ('QD', MirrorStatus.STATUS_QUEUEDL),
-                 ('QU', MirrorStatus.STATUS_QUEUEUP),
-                 ('AR', MirrorStatus.STATUS_ARCHIVING),
-                 ('EX', MirrorStatus.STATUS_EXTRACTING),
-                 ('CL', MirrorStatus.STATUS_CLONING),
-                 ('MG', MirrorStatus.STATUS_MERGING),
-                 ('CP', MirrorStatus.STATUS_COMPRESS),
-                 ('CV', MirrorStatus.STATUS_CONVERT),
-                 ('WM', MirrorStatus.STATUS_WATERMARK),
-                 ('SD', MirrorStatus.STATUS_SEEDING)]
+STATUS_VALUES = [
+    ('ALL', 'All'),
+    ('DL', MirrorStatus.STATUS_DOWNLOADING),
+    ('UP', MirrorStatus.STATUS_UPLOADING),
+    ('QD', MirrorStatus.STATUS_QUEUEDL),
+    ('QU', MirrorStatus.STATUS_QUEUEUP),
+    ('AR', MirrorStatus.STATUS_ARCHIVING),
+    ('EX', MirrorStatus.STATUS_EXTRACTING),
+    ('CL', MirrorStatus.STATUS_CLONING),
+    ('MG', MirrorStatus.STATUS_MERGING),
+    ('CP', MirrorStatus.STATUS_COMPRESS),
+    ('CV', MirrorStatus.STATUS_CONVERT),
+    ('WM', MirrorStatus.STATUS_WATERMARK),
+    ('SD', MirrorStatus.STATUS_SEEDING)
+]
 
 
 async def getTaskByGid(gid: str):
@@ -146,16 +148,14 @@ def get_readable_message(sid: int, is_user: bool, page_no: int = 1, status: str 
 
     for index, task in enumerate(tasks[start_position:STATUS_LIMIT + start_position], start=1):
         tstatus = task.status()
-        msg += f'<b>{index + start_position}.</b> 🎥 𝐓ɪᴛᴛʟᴇ :</b> <code>{escape(str(task.name())) or "N/A"}</code>'
+        msg += f'<b>{index + start_position}.</b> 🎥 𝐓ɪᴛᴛʟᴇ : </b><code>{escape(str(task.name())) or "N/A"}</code>'
         msg += f'\n\n┏━━༻«<b> <a href=https://t.me/SSBotsUpdates>★彡 𝐒𝐒 𝐁ᴏᴛs 彡★</a></b> »༺━━┓'
-
         if task.listener.isSuperChat:
             reply_to = task.listener.message.reply_to_message
             link = task.listener.message.link if not reply_to or getattr(reply_to.from_user, 'is_bot', None) else reply_to.link
-            msg += f'\n<b>┠🪄 𝐒ᴛᴀᴛᴜs :</b> <a href="{link}">{tstatus}...</a>'
+            msg += f'\n<b>┠🪄 𝐒ᴛᴀᴛᴜs :<a href="{link}">{tstatus}...</a></b>'
         else:
             msg += f'\n<b>┠ {tstatus}...</b>'
-
         ext_msg = (
             f'\n<b>┠🪩 𝐄ɴɢɪɴᴇ :</b> {task.engine()}'
             f'\n<b>┠👤 𝐔sᴇʀ :</b> <a href="https://t.me/{task.listener.message.from_user.username}">{task.listener.message.from_user.first_name}</a>'
@@ -166,7 +166,7 @@ def get_readable_message(sid: int, is_user: bool, page_no: int = 1, status: str 
         if tstatus not in [MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_METADATA, MirrorStatus.STATUS_SUBSYNC]:
             msg += f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
 
-            if tstatus == MirrorStatus.STATUS_SPLITTING and task.listener.isLeech:
+            if tstatus == MirrorStatus.STATUS_SPLITTING and getattr(task.listener, "isLeech", False):
                 msg += f'\n<b>┠ Split Size:</b> {get_readable_file_size(task.listener.splitSize)}'
 
             msg += (
@@ -240,9 +240,8 @@ def get_readable_message(sid: int, is_user: bool, page_no: int = 1, status: str 
     msg += (
         '┎⌬ <b><i>📊 𝐒𝐒 𝐁ᴏᴛs 𝐒ᴛᴀᴛs ⋆｡°✩₊˚.༄</i></b>\n'
         f'┠<b>⚙️ 𝐂ᴘᴜ:</b> {cpu_percent()}% <b>|💿 𝐅:</b> {get_readable_file_size(disk_usage(config_dict["DOWNLOAD_DIR"]).free)}\n'
-        f'┠<b>🧠 𝐑ᴀᴍ:</b> {virtual_memory().percent}% <b>|⏳ 𝐔ᴘᴛɪᴍᴇ:</b> {get_readable_time(time() - botStartTime)}\n'
-        f'┠<b>🔻 𝐃ʟ:</b> {get_readable_file_size(dl_speed)} <b>|🔺 𝐔ʟ:</b> {get_readable_file_size(up_speed)}/s'
+        f'┠<b>🧠 𝐑ᴀᴍ:</b> {virtual_memory().percent}% <b>|⏳ 𝐔ᴘᴛɪᴍᴇ:</b>{get_readable_time(time() - botStartTime)}\n'
+        f'┠<b>🔻 𝐃ʟ:</b> {get_readable_file_size(dl_speed)} <b>|🔺 𝐔ʟ:</b> {get_readable_file_size(up_speed)}/s\n'
     )
 
     return msg, buttons.build_menu(6)
-
