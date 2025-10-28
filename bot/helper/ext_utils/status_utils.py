@@ -156,15 +156,16 @@ def get_readable_message(sid: int, is_user: bool, page_no: int=1, status : str='
                    f'\n<b>┠👤 𝐔sᴇʀ :</b> <a href="https://t.me/{task.listener.message.from_user.username}">{task.listener.message.from_user.first_name}</a>' if task.listener.isSuperChat else ''
                    f'\n<b>┠ Action:</b> {action(task.listener.message)}')
         if tstatus not in [MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_METADATA, MirrorStatus.STATUS_SUBSYNC]:
-            msg += (f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
+            msg += f'\n<b>┠</b>{get_progress_bar_string(task.progress())} {task.progress()}'
+        
             if tstatus == MirrorStatus.STATUS_SPLITTING and task.listener.isLeech:
                 msg += f'\n<b>┠ Split Size:</b> {get_readable_file_size(task.listener.splitSize)}'
+        
             msg += (f'\n<b>┠⚡𝐏ʀᴏᴄᴇssᴇᴅ :</b> {task.processed_bytes()} of {task.size()}'
                     f'\n<b>┠⏳𝐄ᴛᴀ :</b> {task.eta() or "~"}'
                     f'\n<b>┠☘️𝐒ᴘᴇᴇᴅ :</b> {task.speed()}'
-                    f'\n<b>┠🕓𝐄ʟᴀᴘsᴇᴅ :</b>{task.elapsed() or "~"}'
+                    f'\n<b>┠🕓𝐄ʟᴀᴘsᴇᴅ :</b>{task.elapsed() or "~"}')
 
-                    )
             if tstatus == MirrorStatus.STATUS_WAIT:
                 msg += f'\n<b>┠ Timeout: </b>{task.timeout()}'
             if hasattr(task, 'seeders_num'):
