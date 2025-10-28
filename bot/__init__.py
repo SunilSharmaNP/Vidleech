@@ -453,10 +453,10 @@ UPDATE_EVERYTHING = environ.get('UPDATE_EVERYTHING', 'False').lower() == 'true'
 
 
 # ============================== UI ====================================
-AUTHOR_NAME = environ.get('AUTHOR_NAME', 'Maheshsirop')
-AUTHOR_URL = environ.get('AUTHOR_URL', 'https://t.me/maheshsirop')
+AUTHOR_NAME = environ.get('AUTHOR_NAME', 'SSBots')
+AUTHOR_URL = environ.get('AUTHOR_URL', 'https://t.me/SSBOtsUpdates')
 DRIVE_SEARCH_TITLE = environ.get('DRIVE_SEARCH_TITLE', 'Drive Search')
-GD_INFO = environ.get('GD_INFO', 'By @maheshsirop')
+GD_INFO = environ.get('GD_INFO', 'By SSBots')
 PROG_FINISH = environ.get('PROG_FINISH', '⬤')
 PROG_UNFINISH = environ.get('PROG_UNFINISH', '○')
 SOURCE_LINK_TITLE = environ.get('SOURCE_LINK_TITLE', 'Source Link')
