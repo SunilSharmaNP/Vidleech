@@ -2,7 +2,10 @@ from aiofiles import open as aiopen
 from aiofiles.os import remove as aioremove, path as aiopath, listdir
 from aiohttp import ClientSession
 from aioshutil import rmtree as aiormtree, disk_usage
-from magic import Magic
+try:
+    from magic import Magic
+except ImportError:
+    Magic = None
 from os import walk, path as ospath, makedirs
 from re import split as re_split, search as re_search, escape, I
 from subprocess import run as srun
@@ -130,6 +133,11 @@ def get_base_name(orig_path):
 
 
 def get_mime_type(file_path):
+    if Magic is None:
+        # Fallback to basic extension-based detection when python-magic is not available
+        import mimetypes
+        mime_type, _ = mimetypes.guess_type(file_path)
+        return mime_type or 'application/octet-stream'
     mime = Magic(mime=True)
     mime_type = mime.from_file(file_path)
     mime_type = mime_type or 'text/plain'
