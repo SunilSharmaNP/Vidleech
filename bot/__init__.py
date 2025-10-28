@@ -20,6 +20,7 @@ from uvloop import install
 
 # from faulthandler import enable as faulthandler_enable
 # faulthandler_enable()
+install()
 setdefaulttimeout(600)
 
 botStartTime = time()
@@ -758,15 +759,9 @@ if not config_dict['ARGO_TOKEN']:
     config_dict['TORRENT_PORT'] = PORT
             
 PORT = environ.get('PORT')
-try:
-    Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{PORT} --worker-class gevent", shell=True)
-except:
-    LOGGER.warning('Gunicorn not found, web interface disabled')
+Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{PORT} --worker-class gevent", shell=True)
 
-try:
-    srun([QBIT_NAME, '-d', f'--profile={getcwd()}'], check=True)
-except FileNotFoundError:
-    LOGGER.warning('QBittorrent not found, torrent support disabled')
+srun([QBIT_NAME, '-d', f'--profile={getcwd()}'], check=True)
 if not ospath.exists('.netrc'):
     with open('.netrc', 'w'):
         pass
@@ -795,23 +790,19 @@ def get_client():
 aria2c_global = ['bt-max-open-files', 'download-result', 'keep-unfinished-download-result', 'log', 'log-level', 'max-concurrent-downloads', 'max-download-result',
                  'max-overall-download-limit', 'save-session', 'max-overall-upload-limit', 'optimize-concurrent-downloads', 'save-cookies', 'server-stat-of']
 
-try:
-    qb_client = get_client()
-    if not qbit_options:
-        qbit_options = dict(qb_client.app_preferences())
-        del qbit_options['listen_port']
-        for k in list(qbit_options.keys()):
-            if k.startswith('rss'):
-                del qbit_options[k]
-    else:
-        qb_opt = {**qbit_options}
-        for k, v in list(qb_opt.items()):
-            if v in ['', '*']:
-                del qb_opt[k]
-        qb_client.app_set_preferences(qb_opt)
-except Exception as e:
-    LOGGER.warning(f'QBittorrent client connection failed: {e}')
-    qb_client = None
+qb_client = get_client()
+if not qbit_options:
+    qbit_options = dict(qb_client.app_preferences())
+    del qbit_options['listen_port']
+    for k in list(qbit_options.keys()):
+        if k.startswith('rss'):
+            del qbit_options[k]
+else:
+    qb_opt = {**qbit_options}
+    for k, v in list(qb_opt.items()):
+        if v in ['', '*']:
+            del qb_opt[k]
+    qb_client.app_set_preferences(qb_opt)
 
 LOGGER.info('Creating client Pyrofork V%s...', __version__)
 kwargs = {'workers': 1000,  'parse_mode': ParseMode.HTML}
@@ -821,9 +812,7 @@ bot: tgClient = tgClient('bot', TELEGRAM_API, TELEGRAM_HASH, bot_token=BOT_TOKEN
 
 bot_loop = bot.loop
 bot_name = bot.me.username
-# Use config timezone or default to UTC (avoid get_localzone which may fail)
-timezone_str = environ.get('TIME_ZONE', 'UTC')
-scheduler = AsyncIOScheduler(timezone=timezone_str, event_loop=bot_loop)
+scheduler = AsyncIOScheduler(timezone=str(get_localzone()), event_loop=bot_loop)
 
 if not aria2_options:
     aria2_options = aria2.client.get_global_option()
