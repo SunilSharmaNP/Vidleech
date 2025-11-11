@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Bot specific
+config.env
+*.session
+*.session-journal
+thumbnails/
+rclone/
+tokens/
+downloads/
+*.log
+log.txt
+cookies.txt
+terabox.txt
+accounts/
+accounts.zip
+list_drives.txt
+shorteners.txt
+.netrc
+netrc
+credentials.json
+token.pickle
+rclone.conf
+cfg.zip
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
