@@ -1,0 +1,48 @@
+11-Nov-25 04:35:46 AM: [INFO: __init__.py - 134] ~ token.pickle has been impoerted from database.
+11-Nov-25 04:35:46 AM: [INFO: __init__.py - 134] ~ accounts.zip has been impoerted from database.
+11-Nov-25 04:35:46 AM: [INFO: __init__.py - 134] ~ cookies.txt has been impoerted from database.
+11-Nov-25 04:35:47 AM: [INFO: __init__.py - 144] ~ Aria2c settings imported from database.
+11-Nov-25 04:35:47 AM: [INFO: __init__.py - 148] ~ QBittorrent settings imported from database.
+11-Nov-25 04:35:47 AM: [WARNING: __init__.py - 345] ~ MEGA Credentials not provided!
+11-Nov-25 04:35:47 AM: [INFO: __init__.py - 870] ~ qBittorrent already running or failed to start
+11-Nov-25 04:35:49 AM: [INFO: __init__.py - 924] ~ Creating client Pyrofork V2.3.68...
+11-Nov-25 04:35:54 AM: [INFO: db_handler.py - 62] ~ Users data has been imported from Database.
+11-Nov-25 04:35:55 AM: [INFO: base.py - 507] ~ Adding job tentatively -- it will be properly scheduled when the scheduler starts
+11-Nov-25 04:35:55 AM: [INFO: base.py - 1090] ~ Added job "RSS" to job store "default"
+11-Nov-25 04:35:55 AM: [INFO: base.py - 214] ~ Scheduler started
+11-Nov-25 04:35:55 AM: [INFO: telegraph_helper.py - 22] ~ Creating Telegraph Account
+11-Nov-25 04:35:57 AM: [INFO: conf_loads.py - 736] ~ Leech Split Size: 2097151000.
+11-Nov-25 04:35:57 AM: [ERROR: ping.py - 22] ~ PING_URL not provided! Retrying in 10 seconds (1/5).
+11-Nov-25 04:36:00 AM: [INFO: __main__.py - 349] ~ Bot @SSLeechBot3_bot Started!
+11-Nov-25 04:36:07 AM: [ERROR: ping.py - 22] ~ PING_URL not provided! Retrying in 10 seconds (2/5).
+11-Nov-25 04:36:10 AM: [ERROR: dispatcher.py - 433] ~ Unhandled exception: object Future can't be used in 'await' expression
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 378, in _dispatch_to_handlers
+    await self._execute_handler(handler, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 405, in _execute_handler
+    await handler.callback(self.client, *args)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/handlers/callback_query_handler.py", line 207, in resolve_future_or_callback
+    await self.original_callback(client, query, *args)
+TypeError: object Future can't be used in 'await' expression
+11-Nov-25 04:36:15 AM: [INFO: base.py - 179] ~ Running job "RSS (trigger: interval[0:15:00], next run at: 2025-11-11 04:51:15 UTC)" (scheduled at 2025-11-11 04:36:15.125408+00:00)
+11-Nov-25 04:36:15 AM: [WARNING: rss.py - 553] ~ RSS_CHAT not added! Shutting down rss scheduler...
+11-Nov-25 04:36:15 AM: [INFO: base.py - 203] ~ Job "RSS (trigger: interval[0:15:00], next run at: 2025-11-11 04:51:15 UTC)" executed successfully
+11-Nov-25 04:36:15 AM: [INFO: base.py - 245] ~ Scheduler has been shut down
+11-Nov-25 04:36:17 AM: [ERROR: ping.py - 22] ~ PING_URL not provided! Retrying in 10 seconds (3/5).
+11-Nov-25 04:36:27 AM: [ERROR: ping.py - 22] ~ PING_URL not provided! Retrying in 10 seconds (4/5).
+11-Nov-25 04:36:31 AM: [ERROR: dispatcher.py - 399] ~ 'NoneType' object has no attribute 'id'
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/dispatcher.py", line 393, in _match_handler
+    if await handler.check(self.client, parsed_update):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/handlers/message_handler.py", line 112, in check
+    handler_does_match = await self.filters(client, message)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pyrogram/filters.py", line 77, in __call__
+    x = await self.base(client, update)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/bot/helper/telegram_helper/filters.py", line 26, in authorized_user
+    uid = user.id
+          ^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+11-Nov-25 04:36:37 AM: [ERROR: ping.py - 22] ~ PING_URL not provided! Retrying in 10 seconds (5/5).
